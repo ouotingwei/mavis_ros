@@ -1,0 +1,3 @@
+# Vocabulary files (too large for GitHub)
+mavis/Vocabulary/*.txt
+models/*.onnx

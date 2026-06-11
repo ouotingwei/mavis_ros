@@ -1,0 +1,19 @@
+<launch>
+    <!-- Launch the right camera -->
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="right_cam"/>
+        <arg name="serial_no" value="231122070168"/>
+    </include>
+
+    <!-- Launch the front camera -->
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="front_cam"/>
+        <arg name="serial_no" value="836612070574"/>
+    </include>
+
+    <!-- Launch the left camera -->
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="left_cam"/>
+        <arg name="serial_no" value="231122071587"/>
+    </include>
+</launch>

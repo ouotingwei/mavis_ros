@@ -1,0 +1,36 @@
+<launch>
+    <param name="use_sim_time" value="false" />
+    <!-- Hilti-2022, 0=right, 1=left, 3=rightside, 4=leftside -->
+    <!-- Main node -->
+    <node name="mavis" pkg="mavis_ros" type="ros_multi" output="log">
+
+        <!-- change the topics according to the dataset -->
+        <remap from="/camera/left/image_raw"      to="/alphasense/cam1/image_raw"/>
+        <remap from="/camera/right/image_raw"     to="/alphasense/cam0/image_raw"/>
+        <remap from="/camera/leftside/image_raw"  to="/alphasense/cam4/image_raw"/>
+        <remap from="/camera/rightside/image_raw" to="/alphasense/cam3/image_raw"/>
+        <remap from="/camera/imu"                 to="/alphasense/imu"/>
+
+        <!-- Parameters for original ORB-SLAM3 -->
+        <param name="voc_file"      type="string" value="$(find mavis_ros)/mavis/Vocabulary/DescpVOC_hilti.txt"/>
+        <param name="settings_file" type="string" value="$(find mavis_ros)/config/Multi/multicam.yaml"/>
+        <param name="de_flag" type="bool" value="false"/>
+
+        <!-- Parameters for ROS -->
+        <param name="world_frame_id"    type="string"   value="world" />
+        <param name="cam_frame_id"      type="string"   value="camera" />
+        <param name="imu_frame_id"      type="string"   value="imu" />
+        <param name="enable_pangolin"   type="bool"     value="true" />
+    </node>
+    
+    <!-- Visualization -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mavis_ros)/config/orb_slam3_rgbd.rviz" output="screen" /> -->
+    
+    <!-- Trajectory path -->
+    <node pkg="hector_trajectory_server" type="hector_trajectory_server" name="trajectory_server_orb_slam3" output="screen" ns="orb_slam3_ros" >
+        <param name="/target_frame_name" value="/world" />
+        <param name="/source_frame_name" value="/imu" />
+        <param name="/trajectory_update_rate" value="20.0" />
+        <param name="/trajectory_publish_rate" value="20.0" />
+    </node>
+</launch>
