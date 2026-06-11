@@ -80,8 +80,6 @@ For dark or low-contrast sequences, an optional preprocessing step applies:
 1. **Adaptive Gamma correction** — based on mean image brightness
 2. **CLAHE** — local contrast enhancement per tile
 
-> ⚠️ This modifies pixel values. Not recommended if using direct-method SLAM backends.
-
 ---
 
 ## Acknowledgements
